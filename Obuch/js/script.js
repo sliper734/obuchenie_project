@@ -1,8 +1,6 @@
 "use strict";
 
-const numberOfFilms=prompt("Сколько фильмов вы уже посмотрели?","");
-console.log(numberOfFilms);
-
+const numberOfFilms=+prompt("Сколько фильмов вы уже посмотрели?","");
 const personalMovieDB={
     count:numberOfFilms,
     movies:{},
@@ -10,13 +8,28 @@ const personalMovieDB={
     genres:[],
     privat:false
 };
-console.log(personalMovieDB);
 
-const nameMovie=prompt("Один из последних просмотренных фильмов?",""),
-      movieMark=prompt("На сколько оцение его?",""),
-      nameMovie1=prompt("Один из последних просмотренных фильмов?",""),
-      movieMark1=prompt("На сколько оцение его?","");
+for (let i=1;i<3;i++){
+        const nameMovie=prompt("Один из последних просмотренных фильмов?"+i,""),
+              movieMark=prompt("На сколько оцение его?"+i,"");
+        if( nameMovie==null || movieMark==null ){
+            i--;
+            continue;
+        }else if(nameMovie.length==0 || movieMark.length==0 || nameMovie.length>50 || movieMark.length>50 )
+            {
+                i--;
+                continue;
+            }
+        personalMovieDB.movies[nameMovie]=movieMark;
+    }
 
-personalMovieDB.movies[nameMovie]=movieMark;
-personalMovieDB.movies[nameMovie1]=movieMark1;
 console.log(personalMovieDB);
+if (personalMovieDB.count<10){
+    console.log('Просмотрено довольно мало фильмов');
+} else if (personalMovieDB.count>=10 && personalMovieDB.count <=30){
+    console.log('Вы классический зритель');
+} else if (personalMovieDB.count>30){
+    console.log('Вы киносан');
+} else {
+    console.log('Произошла ошибка');
+}
